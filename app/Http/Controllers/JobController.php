@@ -4,30 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\job;
+// use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobPosted;
+
 
 
 class JobController extends Controller
 {
-
     public function index()
     {
-        return view('jobs.index', [
+        return view('jobs.index' , [
             'jobs' => Job::orderBy('created_at', 'desc')->paginate(6)
-        ]);
+
+            ]);
     }
 
-    // public function index()
-    // {
-    //     return view('jobs.index' , [
-    //         'jobs' => Job::orderBy('created_at', 'desc')->paginate(6)
+    // ###types of pagination
 
-    //         ]);
-    // }
-
-    ###types of pagination
-
-            // *simplePaginate
-            // *cursorPaginate
+    //         // *simplePaginate
+    //         // *cursorPaginate
 
             //  job::all()
     public function create()
@@ -56,6 +55,10 @@ class JobController extends Controller
             'salary' => request('salary'),
             'employer_id' => 1
         ]);
+
+        Mail::to('marvinmawira8@gmail.com')->queue(
+            new \App\Mail\JobPosted()
+        );
 
         return redirect('/jobs');
     }
@@ -101,3 +104,4 @@ class JobController extends Controller
         return redirect ('/jobs');
     }
 }
+

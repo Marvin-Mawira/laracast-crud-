@@ -22,21 +22,19 @@
             <div class="border p-4 rounded shadow">
                 <a href="/jobs/{{ $job['id'] }} " class="text-blue-500 hover:underline">
 
-                    {{-- <div>
-                        {{ $job->employer->name }}
-                    </div> --}}
+                    
                     <strong class="block text-lg mb-2">
                         {{ $job['title'] }};
                     </strong>
-                <p> Pays {{ $job['salary'] }} per year. </p>
+                    <p> Pays {{ $job['salary'] }} per year. </p>
                 </a>
 
             </div>
         @endforeach
 
-            <div>
-                {{ $jobs->links() }}
-            </div>
+        <div>
+            {{ $jobs->links() }}
+        </div>
 
     </div>
 </x-layout>

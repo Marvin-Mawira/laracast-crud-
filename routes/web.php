@@ -2,10 +2,24 @@
 
 // namespace App\Http\Controllers;
 
+
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\JobController;
 // use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
-// use App\Models\job;
+use App\Models\job;
+
+
+// Route::get('test', function () {
+//     // \Illuminate\Support\Facades\Mail::to('marvinmawira8@gmail.com')->send(
+//     //     new \App\Mail\JobPosted()
+//     // );
+
+//     return 'Done';
+// });
+
+
 
 // Route::get('/', function () {
 //     return view('home');
@@ -20,44 +34,44 @@ Route::view('/contact', 'contact');
 
 ///////////// NEW WAY USING CONTROLLER  /////////
 ####jobController
-
-##index
-// Route::get('/jobs', [JobController::class, 'index']);
+Route::resource('jobs', JobController::class);
+// ##index
+// // Route::get('/jobs', [JobController::class, 'index']);
 // Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
 
-##create
-Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create');
+// ##create
+// Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create');
 
-##show
-Route::get('/jobs/{job}', [JobController::class, 'show']);
+// ##show
+// Route::get('/jobs/{job}', [JobController::class, 'show']);
 
-##store
-Route::post('/jobs', [JobController::class, 'store']);
+// ##store
+// Route::post('/jobs', [JobController::class, 'store']);
 
-##edit
-Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
+// ##edit
+// Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
 
-##update
-Route::get('/jobs/{job}', [JobController::class, 'update']);
+// ##update
+// Route::get('/jobs/{job}', [JobController::class, 'update']);
 
-##destroy
-Route::get('/jobs/{job}', [JobController::class, 'destroy']);
+// ##destroy
+// Route::get('/jobs/{job}', [JobController::class, 'destroy']);
 
 
 ////////////   OLD WAY   //////////
 
-Route::get('/jobs', function () {
+// Route::get('/jobs', function () {
 
-    return view('jobs.index' , [
-        'jobs' => Job::orderBy('created_at', 'desc')->paginate(6)
-        ###types of pagination
+//     return view('jobs.index' , [
+//         'jobs' => Job::orderBy('created_at', 'desc')->paginate(6)
+//         ###types of pagination
 
-        // *simplePaginate
-        // *cursorPaginate
+//         // *simplePaginate
+//         // *cursorPaginate
 
-        //  job::all()
-        ]);
-});
+//         //  job::all()
+//         ]);
+// });
 
 // $jobs = job::with('employer')->paginate(3);
 
@@ -142,3 +156,11 @@ Route::get('/jobs', function () {
 //     // Redirect
 //     return redirect ('/jobs');
 // });
+
+
+//Auth
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
